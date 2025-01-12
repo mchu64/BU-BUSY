@@ -2,8 +2,30 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import './App.css'; // Importing the CSS file
+import { fetchDensityData } from './services/api';
 
 function App() {
+
+  const [densityData, setDensityData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch data when the component mounts
+  useEffect(() => {
+    const getDensityData = async () => {
+      try {
+        const data = await fetchDensityData();
+        setDensityData(data);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch data');
+        setLoading(false);
+      }
+    };
+
+    getDensityData();
+  }, []);
+
   return (
     <div className="app flex-container">
       
