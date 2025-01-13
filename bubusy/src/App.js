@@ -72,7 +72,7 @@ function App() {
   {/* Card Container */}
   <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full text-center">
     {/* Center Name and Address */}
-    <h1 className="text-2xl font-bold text-blue-500">BU Fitness and Recreation Center</h1>
+    <h1 className="text-2xl font-bold text-red-500">BU Fitness and Recreation Center</h1>
     <p className="text-gray-600 mt-2">915 Commonwealth Ave, Boston, MA 02215</p>
 
     {/* Carousel */}
@@ -82,9 +82,9 @@ function App() {
         {/* Current Occupancy */}
         <div className="carousel-item flex flex-col items-center justify-center w-full">
           <h2 className="text-lg font-bold text-gray-700">Current Occupancy</h2>
-          <p className="text-3xl font-bold text-blue-500 mt-4">70%</p>
+          <p className="text-3xl font-bold text-red-500 mt-4">70%</p>
           <div className="w-3/4 h-2 bg-gray-200 rounded mt-4">
-            <div className="h-2 bg-blue-500 rounded" style={{ width: "70%" }}></div>
+            <div className="h-2 bg-red-500 rounded" style={{ width: "70%" }}></div>
           </div>
         </div>
 
