@@ -39,7 +39,7 @@ function App() {
               </svg>
               <span className="ml-2">
                 Warning: BU Busy is still in beta! Predictions may not be 100%
-                accurate.
+                accurate
               </span>
             </div>
             {/* Close button */}
@@ -68,53 +68,70 @@ function App() {
       )}
 
       {/* Main content */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-  {/* Card for each facility */}
-  <div className="card bg-white shadow-lg p-4 rounded-lg">
-    <h3 className="text-xl font-bold text-blue-500">Library</h3>
-    <p className="text-gray-600 mt-2">Current Occupancy: 75%</p>
-    <p className="text-gray-600">Predicted: 60%</p>
-    <button className="btn btn-primary mt-4">More Info</button>
-  </div>
+      <main className="mt-16 p-4 flex justify-center">
+  {/* Card Container */}
+  <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full text-center">
+    {/* Center Name and Address */}
+    <h1 className="text-2xl font-bold text-blue-500">BU Fitness and Recreation Center</h1>
+    <p className="text-gray-600 mt-2">915 Commonwealth Ave, Boston, MA 02215</p>
 
-  <div className="card bg-white shadow-lg p-4 rounded-lg">
-    <h3 className="text-xl font-bold text-blue-500">Gym</h3>
-    <p className="text-gray-600 mt-2">Current Occupancy: 50%</p>
-    <p className="text-gray-600">Predicted: 40%</p>
-    <button className="btn btn-primary mt-4">More Info</button>
-  </div>
+    {/* Carousel */}
+    <div className="relative mt-6">
+      {/* Carousel Content */}
+      <div className="carousel w-full">
+        {/* Current Occupancy */}
+        <div className="carousel-item flex flex-col items-center justify-center w-full">
+          <h2 className="text-lg font-bold text-gray-700">Current Occupancy</h2>
+          <p className="text-3xl font-bold text-blue-500 mt-4">70%</p>
+          <div className="w-3/4 h-2 bg-gray-200 rounded mt-4">
+            <div className="h-2 bg-blue-500 rounded" style={{ width: "70%" }}></div>
+          </div>
+        </div>
 
-  <div className="card bg-white shadow-lg p-4 rounded-lg">
-    <h3 className="text-xl font-bold text-blue-500">Dining Hall</h3>
-    <p className="text-gray-600 mt-2">Current Occupancy: 90%</p>
-    <p className="text-gray-600">Predicted: 85%</p>
-    <button className="btn btn-primary mt-4">More Info</button>
-  </div>
-</div>
+        {/* Predicted Occupancy */}
+        <div className="carousel-item flex flex-col items-center justify-center w-full">
+          <h2 className="text-lg font-bold text-gray-700">Predicted Occupancy</h2>
+          <ul className="mt-4 space-y-2">
+            <li className="text-gray-600">4 PM - 60%</li>
+            <li className="text-gray-600">5 PM - 50%</li>
+            <li className="text-gray-600">6 PM - 40%</li>
+          </ul>
+        </div>
 
+        {/* Peak Hours */}
+        <div className="carousel-item flex flex-col items-center justify-center w-full">
+          <h2 className="text-lg font-bold text-gray-700">Peak Hours</h2>
+          <p className="text-gray-600 mt-4">Peak hours are typically 5 PM - 7 PM.</p>
+          <p className="text-gray-600">Visit during non-peak hours for a quieter experience.</p>
+        </div>
+      </div>
 
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-  <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
-    <h2 className="text-2xl font-bold text-blue-500">Library</h2>
-    <p className="mt-4 text-gray-600">Current Occupancy: 75%</p>
-    <p className="text-gray-600">Predicted: 60%</p>
-    <div className="h-2 bg-gray-200 rounded mt-4">
-      <div className="h-2 bg-blue-500 rounded" style={{ width: "75%" }}></div>
+      {/* Arrows */}
+      <button className="absolute left-0 top-1/2 transform -translate-y-1/2 btn btn-circle btn-sm z-10">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button className="absolute right-0 top-1/2 transform -translate-y-1/2 btn btn-circle btn-sm z-10">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
     </div>
   </div>
-
-  <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
-    <h2 className="text-2xl font-bold text-green-500">Gym</h2>
-    <p className="mt-4 text-gray-600">Current Occupancy: 50%</p>
-    <p className="text-gray-600">Predicted: 40%</p>
-    <div className="h-2 bg-gray-200 rounded mt-4">
-      <div className="h-2 bg-green-500 rounded" style={{ width: "50%" }}></div>
-    </div>
-  </div>
-</div>
-
-
-
+</main>
 
 
     </div>
