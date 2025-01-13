@@ -11,4 +11,5 @@ def preprocess_data(df):
     # Adding a real time hour feature to use for ML modeling
     df_mod['real_time_hour'] = df_mod['hour'] + 1
 
+
     return df
