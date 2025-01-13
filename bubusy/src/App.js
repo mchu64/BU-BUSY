@@ -68,20 +68,55 @@ function App() {
       )}
 
       {/* Main content */}
-      <div className={`relative ${showWarning ? "blur-sm" : ""}`}>
-        <header className="text-center py-4">
-          <h1 className="text-4xl font-bold text-blue-500">Busy BU</h1>
-          <p className="text-lg text-gray-600">
-            Real-time and predictive occupancy data for BU's facilities
-          </p>
-        </header>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+  {/* Card for each facility */}
+  <div className="card bg-white shadow-lg p-4 rounded-lg">
+    <h3 className="text-xl font-bold text-blue-500">Library</h3>
+    <p className="text-gray-600 mt-2">Current Occupancy: 75%</p>
+    <p className="text-gray-600">Predicted: 60%</p>
+    <button className="btn btn-primary mt-4">More Info</button>
+  </div>
 
-        <main className="mt-8">
-          <p className="text-center text-gray-700">
-            Welcome to Busy BU! Check real-time data on facility usage.
-          </p>
-        </main>
-      </div>
+  <div className="card bg-white shadow-lg p-4 rounded-lg">
+    <h3 className="text-xl font-bold text-blue-500">Gym</h3>
+    <p className="text-gray-600 mt-2">Current Occupancy: 50%</p>
+    <p className="text-gray-600">Predicted: 40%</p>
+    <button className="btn btn-primary mt-4">More Info</button>
+  </div>
+
+  <div className="card bg-white shadow-lg p-4 rounded-lg">
+    <h3 className="text-xl font-bold text-blue-500">Dining Hall</h3>
+    <p className="text-gray-600 mt-2">Current Occupancy: 90%</p>
+    <p className="text-gray-600">Predicted: 85%</p>
+    <button className="btn btn-primary mt-4">More Info</button>
+  </div>
+</div>
+
+
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+  <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
+    <h2 className="text-2xl font-bold text-blue-500">Library</h2>
+    <p className="mt-4 text-gray-600">Current Occupancy: 75%</p>
+    <p className="text-gray-600">Predicted: 60%</p>
+    <div className="h-2 bg-gray-200 rounded mt-4">
+      <div className="h-2 bg-blue-500 rounded" style={{ width: "75%" }}></div>
+    </div>
+  </div>
+
+  <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
+    <h2 className="text-2xl font-bold text-green-500">Gym</h2>
+    <p className="mt-4 text-gray-600">Current Occupancy: 50%</p>
+    <p className="text-gray-600">Predicted: 40%</p>
+    <div className="h-2 bg-gray-200 rounded mt-4">
+      <div className="h-2 bg-green-500 rounded" style={{ width: "50%" }}></div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
     </div>
   );
 }
