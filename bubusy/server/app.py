@@ -30,12 +30,10 @@ def load_data():
 def predict_density():
     df = load_data()
     df = preprocess_data(df)
-    most_recent = df.iloc[-1]['date'] 
-    best_df = best_df.rename(columns={'hour':'past_hour', 'density_cnt':'past_hour_density_cnt', 'real_time_hour':'hour'})
-    X_vars = best_df[['hour', 'building_floor_2', 'building_floor_3', 'building_floor_l']]
-    best_df['real_time_density_cnt'] = best_model.predict(X_vars).round(0)
-    best_df  
-    predictions = df[['real_time_hour', 'buidling_floor', 'real_time_density_cnt']].to_dict(orient='records')
+    X_vars = df[['hour', 'building_floor_2', 'building_floor_3', 'building_floor_l']]
+    df['real_time_density_cnt'] = model.predict(X_vars).round(0)
+    most_recent = df.iloc[[-1]] 
+    predictions = most_recent[['hour', 'buidling_floor', 'real_time_density_cnt']].to_dict(orient='records')
     return jsonify(predictions)
 
 if __name__ == '__main__':
