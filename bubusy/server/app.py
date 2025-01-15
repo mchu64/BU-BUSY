@@ -25,7 +25,6 @@ def load_data():
                FROM public.densitymap_hourly 
                WHERE building_desc = '915 COMMONWEALTH AVENUE' AND hour >= 6 AND hour <=23 
                AND date >= '2024-09-03' 
-               ORDER BY date ASC
                ORDER BY date ASC, hour ASC;"""
     return pd.read_sql(query, engine)
 
@@ -38,7 +37,9 @@ def predict_density():
     most_recent_date = df[df['date'] == df.iloc[-1]['date']]
     most_recent_hour = most_recent_date[most_recent_date['hour'] == df.iloc[-1]['hour']]
     predictions = most_recent_hour[['hour', 'building_floor', 'real_time_density_cnt']].to_dict(orient='records')
+    print(predictions)
     return jsonify(predictions)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

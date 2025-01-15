@@ -54,6 +54,19 @@ function App() {
       .padStart(2, "0")}`;
   };
 
+  // Map density count to a descriptive string
+  const getDensityDescription = (density) => {
+    if (density <= 5) {
+      return "Not Busy";
+    } else if (density <= 10) {
+      return "Somewhat Busy";
+    } else if (density <= 20) {
+      return "Busy";
+    } else {
+      return "Very Busy";
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-6 relative">
       {/* Dimming overlay */}
@@ -138,7 +151,7 @@ function App() {
                       Floor {item.building_floor}:
                     </span>
                     <span className="text-red-500 font-semibold">
-                      {item.real_time_density_cnt}
+                      {getDensityDescription(item.real_time_density_cnt)}
                     </span>
                   </div>
                 ))
