@@ -41,8 +41,29 @@ function App() {
   };
 
   // Fetch data when the component mounts
+  // refetchs the data every hour 
   useEffect(() => {
+    const fetchAtAlignedTime = () => {
+      const now = new Date();
+      const nextHour = new Date(now);
+      nextHour.setHours(now.getHours() + 1, 1, 0, 0); // Set to the start of the next hour
+      const timeUntilNextHour = nextHour - now;
+  
+      // Fetch predictions at the next hour
+      setTimeout(() => { // only runs once setInterval causes reoccuring fetchs 
+        fetchPredictions(); // Fetch at the next hour
+        // Set regular interval after the first aligned fetch
+        const interval = setInterval(fetchPredictions, 3600000); // Fetch every hour
+        return () => clearInterval(interval); // Cleanup on component unmount
+      }, timeUntilNextHour);
+    };
+  
+    // Fetch immediately and schedule aligned fetches
     fetchPredictions();
+    fetchAtAlignedTime();
+  
+    return () => clearTimeout(fetchAtAlignedTime); // Cleanup timeout
+    
   }, []);
 
   // Format time as MM:SS
@@ -151,7 +172,8 @@ function App() {
                       Floor {item.building_floor}:
                     </span>
                     <span className="text-red-500 font-semibold">
-                      {getDensityDescription(item.real_time_density_cnt)}
+                      {/*getDensityDescription(item.real_time_density_cnt)*/}
+                      {item.real_time_density_cnt}
                     </span>
                   </div>
                 ))
