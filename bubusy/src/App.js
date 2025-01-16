@@ -22,7 +22,7 @@ function App() {
   // Function to fetch predictions from the backend
   const fetchPredictions = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/predict", {
+      const response = await fetch("http://127.0.0.1:5000/predict", { //change when uploading to heroku
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,11 +56,11 @@ function App() {
 
   // Map density count to a descriptive string
   const getDensityDescription = (density) => {
-    if (density <= 5) {
+    if (density <= 50) {
       return "Not Busy";
-    } else if (density <= 10) {
+    } else if (density <= 100) {
       return "Somewhat Busy";
-    } else if (density <= 20) {
+    } else if (density <= 150) {
       return "Busy";
     } else {
       return "Very Busy";

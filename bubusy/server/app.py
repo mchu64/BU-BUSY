@@ -4,12 +4,30 @@ from sqlalchemy import create_engine
 import pandas as pd
 import joblib
 from utils.preprocessing import preprocess_data
+from apscheduler.schedulers.background import BackgroundScheduler
+import atexit
+from retrain import retrain_model
 
 app = Flask(__name__)
+#app = Flask(__name__, static_folder='../frontend/build', static_url_path='')
+
 CORS(app)
 
 # Load model
 model = joblib.load('./models/xgboost_model.pkl')
+def retrain_and_update():
+    global model
+    model = retrain_model()  # Update the global model
+    print("Model updated in Flask app.")
+
+# Schedule the retraining process
+#this should retrain the model every 4 weeks 
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=retrain_and_update, trigger='interval', weeks=4)  # Runs every 4 weeks
+scheduler.start()
+
+# Shut down the scheduler when the app exits
+atexit.register(lambda: scheduler.shutdown())
 
 # Database connection
 def load_data():
