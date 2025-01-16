@@ -62,6 +62,7 @@ def predict_and_update_density():
         X_vars = df[['hour', 'building_floor_2', 'building_floor_3', 'building_floor_l']]
         df['real_time_density_cnt'] = model.predict(X_vars).round(0)
         most_recent_date = df[df['date'] == df.iloc[-1]['date']]
+        print(most_recent_date)
         most_recent_hour = most_recent_date[most_recent_date['hour'] == df.iloc[-1]['hour']]
         predictions = most_recent_hour[['hour', 'building_floor', 'real_time_density_cnt']].to_dict(orient='records')
         print("Hourly predictions updated:", predictions)
