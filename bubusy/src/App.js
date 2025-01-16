@@ -66,6 +66,13 @@ function App() {
     
   }, []);
 
+   // Log new data when `data` is updated
+   useEffect(() => {
+    if (data.length > 0) {
+      console.log("New data fetched:", data);
+    }
+  }, [data]); 
+
   // Format time as MM:SS
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
