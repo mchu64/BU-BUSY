@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 function App() {
   const [showWarning, setShowWarning] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(3600); // Initial time in seconds (60 minutes)
+  const [timeLeft, setTimeLeft] = useState(180); // Initial time in seconds (60 minutes)
   const [data, setData] = useState([]); // For density predictions
 
   // Handle warning close
@@ -41,19 +41,19 @@ function App() {
   };
 
   // Fetch data when the component mounts
-  // refetchs the data every hour 
+  // refetchs the data every 3 minutes 
   useEffect(() => {
     const fetchAtAlignedTime = () => {
       const now = new Date();
       const nextHour = new Date(now);
-      nextHour.setHours(now.getHours() + 1, 1, 0, 0); // Set to the start of the next hour
+      nextHour.setHours(now.getHours() + 180000); // add 3 minutes to the clock
       const timeUntilNextHour = nextHour - now;
   
-      // Fetch predictions at the next hour
+      // Fetch predictions in the next 3 minutes
       setTimeout(() => { // only runs once setInterval causes reoccuring fetchs 
-        fetchPredictions(); // Fetch at the next hour
+        fetchPredictions(); // Fetch at next 3 minute interva;
         // Set regular interval after the first aligned fetch
-        const interval = setInterval(fetchPredictions, 3600000); // Fetch every hour
+        const interval = setInterval(fetchPredictions, 180000); // Fetch every 3 minutes
         return () => clearInterval(interval); // Cleanup on component unmount
       }, timeUntilNextHour);
     };
@@ -180,7 +180,7 @@ function App() {
                     </span>
                     <span className="text-red-500 font-semibold">
                       {/*getDensityDescription(item.real_time_density_cnt)*/}
-                      {item.real_time_density_cnt}
+                      {item.density_cnt}
                     </span>
                   </div>
                 ))
