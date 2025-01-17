@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:5000'; // Backend URL (update for production)
+const API_URL = 
+  process.env.NODE_ENV === "production"
+    ? "https://your-backend-app-name.herokuapp.com" //need to change when we get name
+    : "http://127.0.0.1:5000";
 
 export const fetchDensityData = async () => {
   try {

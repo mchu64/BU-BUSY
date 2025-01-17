@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 
 function App() {
   const [showWarning, setShowWarning] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(3600); // Initial time in seconds (60 minutes)
+  const [timeLeft, setTimeLeft] = useState(180); // Initial time in seconds (60 minutes)
+  const [data, setData] = useState([]); // For density predictions
 
   // Handle warning close
   const handleClose = () => {
@@ -12,11 +13,65 @@ function App() {
   // Countdown timer logic
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : timeLeft));
     }, 1000);
 
     return () => clearInterval(timer); // Cleanup on component unmount
   }, []);
+
+  // Function to fetch predictions from the backend
+  const fetchPredictions = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/predict", { //change when uploading to heroku
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      setData(result); // Set the data in the state
+    } catch (error) {
+      console.error("Error fetching predictions:", error);
+    }
+  };
+
+  // Fetch data when the component mounts
+  // refetchs the data every 3 minutes 
+  useEffect(() => {
+    const fetchAtAlignedTime = () => {
+      const now = new Date();
+      const nextHour = new Date(now);
+      nextHour.setHours(now.getHours() + 180000); // add 3 minutes to the clock
+      const timeUntilNextHour = nextHour - now;
+  
+      // Fetch predictions in the next 3 minutes
+      setTimeout(() => { // only runs once setInterval causes reoccuring fetchs 
+        fetchPredictions(); // Fetch at next 3 minute interva;
+        // Set regular interval after the first aligned fetch
+        const interval = setInterval(fetchPredictions, 180000); // Fetch every 3 minutes
+        return () => clearInterval(interval); // Cleanup on component unmount
+      }, timeUntilNextHour);
+    };
+  
+    // Fetch immediately and schedule aligned fetches
+    fetchPredictions();
+    fetchAtAlignedTime();
+  
+    return () => clearTimeout(fetchAtAlignedTime); // Cleanup timeout
+    
+  }, []);
+
+   // Log new data when `data` is updated
+   useEffect(() => {
+    if (data.length > 0) {
+      console.log("New data fetched:", data);
+    }
+  }, [data]); 
 
   // Format time as MM:SS
   const formatTime = (seconds) => {
@@ -25,6 +80,19 @@ function App() {
     return `${minutes.toString().padStart(2, "0")}:${secs
       .toString()
       .padStart(2, "0")}`;
+  };
+
+  // Map density count to a descriptive string
+  const getDensityDescription = (density) => {
+    if (density <= 50) {
+      return "Not Busy";
+    } else if (density <= 100) {
+      return "Somewhat Busy";
+    } else if (density <= 150) {
+      return "Busy";
+    } else {
+      return "Very Busy";
+    }
   };
 
   return (
@@ -96,32 +164,26 @@ function App() {
             915 Commonwealth Ave, Boston, MA 02215
           </p>
 
-          {/* Current Occupancy */}
+          {/* Real-Time Predictions */}
           <div className="relative mt-6">
-            <h2 className="text-lg font-bold text-gray-700">Current Occupancy</h2>
+            <h2 className="text-lg font-bold text-gray-700">
+              Real-Time Density
+            </h2>
             <div className="mt-4 space-y-4">
-              {/* Floor 1 */}
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600 font-bold">Floor 1:</span>
-                <span className="text-red-500 font-semibold">Busy</span>
-              </div>
-              {/* Floor 2 */}
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600 font-bold">Floor 2:</span>
-                <span className="text-green-500 font-semibold">Not Busy</span>
-              </div>
-              {/* Floor 3 */}
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600 font-bold">Floor 3:</span>
-                <span className="text-red-900 font-semibold">Very Busy</span>
-              </div>
-              {/* Floor 4 */}
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600 font-bold">Floor 4:</span>
-                <span className="text-yellow-300 font-semibold">
-                  Somewhat Busy
-                </span>
-              </div>
+              {data.length === 0 ? (
+                <p>Loading predictions...</p>
+              ) : (
+                data.map((item, index) => (
+                  <div key={index} className="flex justify-between items-center">
+                    <span className="text-gray-600 font-bold">
+                      Floor {item.building_floor}:
+                    </span>
+                    <span className="text-red-500 font-semibold">
+                      {getDensityDescription(item.density_cnt)}
+                    </span>
+                  </div>
+                ))
+              )}
             </div>
           </div>
 
