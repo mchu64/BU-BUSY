@@ -13,7 +13,7 @@ function App() {
   // Countdown timer logic
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : timeLeft));
     }, 1000);
 
     return () => clearInterval(timer); // Cleanup on component unmount
@@ -167,7 +167,7 @@ function App() {
           {/* Real-Time Predictions */}
           <div className="relative mt-6">
             <h2 className="text-lg font-bold text-gray-700">
-              Real-Time Density Predictions
+              Real-Time Density
             </h2>
             <div className="mt-4 space-y-4">
               {data.length === 0 ? (
@@ -179,8 +179,7 @@ function App() {
                       Floor {item.building_floor}:
                     </span>
                     <span className="text-red-500 font-semibold">
-                      {/*getDensityDescription(item.real_time_density_cnt)*/}
-                      {item.density_cnt}
+                      {getDensityDescription(item.density_cnt)}
                     </span>
                   </div>
                 ))
