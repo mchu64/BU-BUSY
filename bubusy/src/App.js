@@ -83,15 +83,29 @@ function App() {
   };
 
   // Map density count to a descriptive string
-  const getDensityDescription = (density) => {
-    if (density <= 50) {
-      return "Not Busy";
-    } else if (density <= 100) {
-      return "Somewhat Busy";
-    } else if (density <= 150) {
-      return "Busy";
-    } else {
-      return "Very Busy";
+  const getDensityDescription = (density, Floor) => {
+    if (Floor === '3') {
+      console.log("ran")
+      if (density <= 10) {
+        return "Not Busy";
+      } else if (density <= 15) {
+        return "Somewhat Busy";
+      } else if (density <= 20) {
+        return "Busy";
+      } else {
+        return "Very Busy";
+      }
+    }
+    else {
+      if (density <= 50) {
+        return "Not Busy";
+      } else if (density <= 100) {
+        return "Somewhat Busy";
+      } else if (density <= 150) {
+        return "Busy";
+      } else {
+        return "Very Busy";
+      }
     }
   };
 
@@ -179,7 +193,7 @@ function App() {
                       Floor {item.building_floor}:
                     </span>
                     <span className="text-red-500 font-semibold">
-                      {getDensityDescription(item.density_cnt)}
+                      {getDensityDescription(item.density_cnt, item.building_floor)}
                     </span>
                   </div>
                 ))
