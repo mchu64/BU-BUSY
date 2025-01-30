@@ -111,6 +111,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 relative">
+          {/* Header */}
+    <header className="bg-red-500 text-white text-center py-4">
+      <h1 className="text-2xl font-bold">BU Busy (BETA)</h1>
+    </header>
+
       {/* Dimming overlay */}
       {showWarning && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-40"></div>
