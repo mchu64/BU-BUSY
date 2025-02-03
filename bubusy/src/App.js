@@ -83,11 +83,11 @@ function App() {
   };
 
   // Map density count to a descriptive string
-  const getDensityDescription = (density, Floor) => {
-    if (Floor === '3') {
-      console.log("ran")
-      if (density <= 10) {
-        return "Not Busy";
+  //const getDensityDescription = (density, Floor) => {
+   // if (Floor === '3') {
+   //   console.log("ran")
+  //    if (density <= 10) {
+  /*      return "Not Busy";
       } else if (density <= 15) {
         return "Somewhat Busy";
       } else if (density <= 20) {
@@ -107,7 +107,7 @@ function App() {
         return "Very Busy";
       }
     }
-  };
+  };*/
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 relative">
@@ -172,7 +172,7 @@ function App() {
         <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full text-center">
           {/* Center Name and Address */}
           <h1 className="text-2xl font-bold text-red-500">
-            BU Fitness and Recreation Center
+            BU Mugar Library
           </h1>
           <p className="text-gray-600 mt-2">
             915 Commonwealth Ave, Boston, MA 02215
@@ -193,7 +193,7 @@ function App() {
                       Floor {item.building_floor}:
                     </span>
                     <span className="text-red-500 font-semibold">
-                      {getDensityDescription(item.density_cnt, item.building_floor)}
+                      {item.density_cnt}
                     </span>
                   </div>
                 ))

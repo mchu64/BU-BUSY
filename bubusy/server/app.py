@@ -32,7 +32,7 @@ def load_data():
         engine = create_engine(f"postgresql://{conn_params['user']}:{conn_params['password']}@{conn_params['host']}:{conn_params['port']}/{conn_params['dbname']}")
         query = """SELECT date, building_code, building_floor, density_cnt
                 FROM cov_density.public.getdensitymap_data_noarg()
-                WHERE building_code = '501';
+                WHERE building_code = '619';
                 """
         return pd.read_sql(query, engine)
     except Exception as e:
